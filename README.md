@@ -14,7 +14,7 @@ Usage example:
 import express from 'express';
 import bodyParser from 'body-parser';
 import fetch from 'node-fetch';
-import { JsonErrorResponse, withJson } from 'express-with-json';
+import withJson, { JsonErrorResponse } from 'express-with-json';
 
 const app = withJson(express());
 // app is a regular express instance just with a few extra methods
