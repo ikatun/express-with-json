@@ -27,9 +27,9 @@ app.getJson('/ok', () => {
   return { ok: true };
 });
 app.getJson('/fail', () => {
-  throw new JsonErrorResponse({ ok: false });
+  throw new JsonErrorResponse({ ok: false }, { statusCode: 501 });
 });
-app.postJson('/echo', req => {
+app.postJson('/echo', (req, res) => {
   return req.body;
 });
 app.getJson('/async-demo', async () => {
