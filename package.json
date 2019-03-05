@@ -1,5 +1,5 @@
 {
-  "name": "json-response",
+  "name": "express-with-json",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf build && tsc -p build.tsconfig.json"
   },
-  "author": "",
+  "author": "Ivo Katunaric",
   "license": "ISC",
   "dependencies": {
     "express": "*"
@@ -16,5 +16,6 @@
     "@types/express": "^4.16.1",
     "node-fetch": "^2.3.0",
     "typescript": "^2.7.2"
-  }
+  },
+  "repository": "https://github.com/ikatun/express-with-json"
 }
