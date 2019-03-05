@@ -4,7 +4,7 @@ Add functions which return objects as middlewares to express.
 Avoid calling `res.json()` and calling `next` with error.
 Just return the object you want JSON-ed to the client or throw `JsonErrorResponse` to return JSON-ed error to the client.
 
-Instalation:
+Installation:
 ```
 npm install express-with-json
 ```
