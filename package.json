@@ -1,7 +1,7 @@
 {
   "name": "express-with-json",
   "version": "0.0.1",
-  "description": "",
+  "description": "Express library which allows middleware functions to just return objects to send to client",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,5 +17,6 @@
     "node-fetch": "^2.3.0",
     "typescript": "^2.7.2"
   },
-  "repository": "https://github.com/ikatun/express-with-json"
+  "repository": "https://github.com/ikatun/express-with-json",
+  "keywords": ["node", "express", "json", "serialize", "object", "function", "json middleware", "middleware"]
 }
