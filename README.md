@@ -2,7 +2,10 @@
 Add functions which return objects as middlewares to express.
 
 Avoid calling `res.json()` and calling `next` with error.
-Just return the object you want JSON-ed to the client or throw `JsonErrorResponse` to return JSON-ed error to the client.
+Just: 
+- return the object you want JSON-ed to the client or
+- throw `JsonErrorResponse` to return JSON-ed error to the client or
+- throw any other error to have next() called with it
 
 Installation:
 ```
