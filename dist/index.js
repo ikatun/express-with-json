@@ -100,3 +100,4 @@ function withJson(express) {
     return express;
 }
 exports.withJson = withJson;
+exports.default = withJson;

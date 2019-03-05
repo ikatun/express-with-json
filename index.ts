@@ -54,3 +54,5 @@ export function withJson<T extends express.Application>(express: T): T & IExpres
 
   return express as any;
 }
+
+export default withJson;

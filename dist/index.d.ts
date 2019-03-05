@@ -18,3 +18,4 @@ export interface IExpressWithJson {
     deleteJson: EndpointMiddleware;
 }
 export declare function withJson<T extends express.Application>(express: T): T & IExpressWithJson;
+export default withJson;
