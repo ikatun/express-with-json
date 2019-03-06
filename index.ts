@@ -44,6 +44,7 @@ export interface IExpressWithJson {
   patchJson: EndpointMiddleware;
   postJson: EndpointMiddleware;
   deleteJson: EndpointMiddleware;
+  putJson: EndpointMiddleware;
 }
 
 export function withJson<T extends express.Application>(express: T): T & IExpressWithJson {
@@ -51,6 +52,7 @@ export function withJson<T extends express.Application>(express: T): T & IExpres
   express['patchJson'] = (path, handler) => express.patch(path, jsonHandler(handler));
   express['postJson'] = (path, handler) => express.post(path, jsonHandler(handler));
   express['deleteJson'] = (path, handler) => express.delete(path, jsonHandler(handler));
+  express['putJson'] = (path, handler) => express.put(path, jsonHandler(handler));
 
   return express as any;
 }

@@ -97,6 +97,7 @@ function withJson(express) {
     express['patchJson'] = function (path, handler) { return express.patch(path, exports.jsonHandler(handler)); };
     express['postJson'] = function (path, handler) { return express.post(path, exports.jsonHandler(handler)); };
     express['deleteJson'] = function (path, handler) { return express.delete(path, exports.jsonHandler(handler)); };
+    express['putJson'] = function (path, handler) { return express.put(path, exports.jsonHandler(handler)); };
     return express;
 }
 exports.withJson = withJson;

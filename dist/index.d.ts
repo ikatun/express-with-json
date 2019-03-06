@@ -16,6 +16,7 @@ export interface IExpressWithJson {
     patchJson: EndpointMiddleware;
     postJson: EndpointMiddleware;
     deleteJson: EndpointMiddleware;
+    putJson: EndpointMiddleware;
 }
 export declare function withJson<T extends express.Application>(express: T): T & IExpressWithJson;
 export default withJson;
