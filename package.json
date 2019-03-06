@@ -1,6 +1,6 @@
 {
   "name": "express-with-json",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Express library which allows middleware functions to just return objects to send to client",
   "main": "dist/index.js",
   "scripts": {
