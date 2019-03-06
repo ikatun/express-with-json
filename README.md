@@ -1,8 +1,11 @@
 # express-with-json
 Add functions which return objects as middlewares to express.
 
-Avoid calling `res.json()` and calling `next` with error.
-Just return the object you want JSON-ed to the client or throw `JsonErrorResponse` to return JSON-ed error to the client.
+Avoid calling `res.json()` catching errors and calling `next` in every json-returning middleware.
+Instead, why not just:
+- returning the object you want JSON-ed to the client or
+- throwing `JsonErrorResponse` to return JSON-ed error to the client or
+- throwing any other error to have next() called with it
 
 Installation:
 ```
@@ -28,6 +31,9 @@ app.getJson('/ok', () => {
 });
 app.getJson('/fail', () => {
   throw new JsonErrorResponse({ ok: false }, { statusCode: 501 });
+});
+app.getJson('/fail2', () => {
+  throw new Error('This error will cause next to be called');
 });
 app.postJson('/echo', (req, res) => {
   return req.body;
