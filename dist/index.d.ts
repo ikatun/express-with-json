@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router } from 'express';
 export declare type JsonHandler = (req: express.Request, res: express.Response) => Promise<object> | object;
 export interface IJsonErrorInfo {
     statusCode?: number;
@@ -18,5 +18,5 @@ export interface IExpressWithJson {
     deleteJson: EndpointMiddleware;
     putJson: EndpointMiddleware;
 }
-export declare function withJson<T extends express.Application>(express: T): T & IExpressWithJson;
+export declare function withJson<T extends express.Application | Router>(express: T): T & IExpressWithJson;
 export default withJson;

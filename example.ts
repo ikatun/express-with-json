@@ -2,9 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import fetch from 'node-fetch';
 
-import { JsonErrorResponse, withJson } from '.';
+import { JsonErrorResponse, withJson } from './index';
 
 const app = withJson(express());
+const app2 = withJson(express.Router());
 app.use(bodyParser.json());
 
 const port = 3000;

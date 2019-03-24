@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router } from 'express';
 
 export type JsonHandler = (req: express.Request, res: express.Response) => Promise<object> | object;
 
@@ -47,7 +47,7 @@ export interface IExpressWithJson {
   putJson: EndpointMiddleware;
 }
 
-export function withJson<T extends express.Application>(express: T): T & IExpressWithJson {
+export function withJson<T extends express.Application | Router>(express: T): T & IExpressWithJson {
   express['getJson'] = (path, handler) => express.get(path, jsonHandler(handler));
   express['patchJson'] = (path, handler) => express.patch(path, jsonHandler(handler));
   express['postJson'] = (path, handler) => express.post(path, jsonHandler(handler));
