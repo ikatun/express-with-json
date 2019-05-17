@@ -13,6 +13,8 @@ const defaultErrorInfo: IJsonErrorInfo = {
 export class JsonErrorResponse extends Error {
   public constructor(public body: object, public errorInfo: IJsonErrorInfo = defaultErrorInfo) {
     super();
+    // @ts-ignore
+    this.__proto__ = JsonErrorResponse.prototype // required for instanceof to work after transpilation
   }
 
   public writeResponse(res: express.Response) {

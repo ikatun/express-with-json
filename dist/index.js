@@ -56,6 +56,8 @@ var JsonErrorResponse = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.body = body;
         _this.errorInfo = errorInfo;
+        // @ts-ignore
+        _this.__proto__ = JsonErrorResponse.prototype; // required for instanceof to work after transpilation
         return _this;
     }
     JsonErrorResponse.prototype.writeResponse = function (res) {

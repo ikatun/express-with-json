@@ -18,5 +18,14 @@
     "typescript": "^2.7.2"
   },
   "repository": "https://github.com/ikatun/express-with-json",
-  "keywords": ["node", "express", "json", "serialize", "object", "function", "json middleware", "middleware"]
+  "keywords": [
+    "node",
+    "express",
+    "json",
+    "serialize",
+    "object",
+    "function",
+    "json middleware",
+    "middleware"
+  ]
 }
