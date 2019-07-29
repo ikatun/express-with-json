@@ -94,12 +94,50 @@ exports.jsonHandler = function (handler) { return function (req, res, next) { re
         }
     });
 }); }; };
+exports.middlewareHandler = function (handler) { return function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+    var e_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (handler.length > 2) {
+                    return [2 /*return*/, handler];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, handler(req, res)];
+            case 2:
+                _a.sent();
+                next();
+                return [3 /*break*/, 4];
+            case 3:
+                e_2 = _a.sent();
+                if (e_2 instanceof JsonErrorResponse) {
+                    e_2.writeResponse(res);
+                }
+                else {
+                    next(e_2);
+                }
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); }; };
+function last(xs) {
+    return xs[xs.length - 1];
+}
+function init(xs) {
+    return xs.slice(0, -1);
+}
+function toRegularExpressArgs(handlers) {
+    return init(handlers).map(exports.middlewareHandler).concat([exports.jsonHandler(last(handlers))]);
+}
 function withJson(express) {
-    express['getJson'] = function (path, handler) { return express.get(path, exports.jsonHandler(handler)); };
-    express['patchJson'] = function (path, handler) { return express.patch(path, exports.jsonHandler(handler)); };
-    express['postJson'] = function (path, handler) { return express.post(path, exports.jsonHandler(handler)); };
-    express['deleteJson'] = function (path, handler) { return express.delete(path, exports.jsonHandler(handler)); };
-    express['putJson'] = function (path, handler) { return express.put(path, exports.jsonHandler(handler)); };
+    express['getJson'] = function (path, handlers) { return express.get.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
+    express['patchJson'] = function (path, handlers) { return express.patch.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
+    express['postJson'] = function (path, handlers) { return express.post.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
+    express['deleteJson'] = function (path, handlers) { return express.delete.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
+    express['putJson'] = function (path, handlers) { return express.put.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
     return express;
 }
 exports.withJson = withJson;

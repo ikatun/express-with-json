@@ -1,6 +1,9 @@
 import express, { Router } from 'express';
 
 export type JsonHandler = (req: express.Request, res: express.Response) => Promise<object> | object;
+export type MiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => any;
+
+export type JsonOrMiddlewareHandler = JsonHandler | MiddlewareHandler;
 
 export interface IJsonErrorInfo {
   statusCode?: number;
@@ -37,9 +40,25 @@ export const jsonHandler = (handler: JsonHandler) => async (req: express.Request
       next(e);
     }
   }
-}
+};
 
-export type EndpointMiddleware = (path: string, handler: JsonHandler) => void;
+export const middlewareHandler = (handler: MiddlewareHandler) => async (req: express.Request, res: express.Response, next) => {
+  if (handler.length > 2) {
+    return handler;
+  }
+  try {
+    await handler(req, res);
+    next();
+  } catch (e) {
+    if (e instanceof JsonErrorResponse) {
+      e.writeResponse(res)
+    } else {
+      next(e);
+    }
+  }
+};
+
+export type EndpointMiddleware = (path: string, ...handlers: Array<JsonOrMiddlewareHandler>) => void;
 
 export interface IExpressWithJson {
   getJson: EndpointMiddleware;
@@ -49,12 +68,24 @@ export interface IExpressWithJson {
   putJson: EndpointMiddleware;
 }
 
+function last<T>(xs: Array<T>): T {
+  return xs[xs.length - 1];
+}
+
+function init<T>(xs: Array<T>): Array<T> {
+  return xs.slice(0, -1);
+}
+
+function toRegularExpressArgs(handlers: Array<JsonOrMiddlewareHandler>) {
+  return [...init(handlers).map(middlewareHandler), jsonHandler(last(handlers))];
+}
+
 export function withJson<T extends express.Application | Router>(express: T): T & IExpressWithJson {
-  express['getJson'] = (path, handler) => express.get(path, jsonHandler(handler));
-  express['patchJson'] = (path, handler) => express.patch(path, jsonHandler(handler));
-  express['postJson'] = (path, handler) => express.post(path, jsonHandler(handler));
-  express['deleteJson'] = (path, handler) => express.delete(path, jsonHandler(handler));
-  express['putJson'] = (path, handler) => express.put(path, jsonHandler(handler));
+  express['getJson'] = (path, handlers) => express.get(path, ...toRegularExpressArgs(handlers));
+  express['patchJson'] = (path, handlers) => express.patch(path, ...toRegularExpressArgs(handlers));
+  express['postJson'] = (path, handlers) => express.post(path, ...toRegularExpressArgs(handlers));
+  express['deleteJson'] = (path, handlers) => express.delete(path, ...toRegularExpressArgs(handlers));
+  express['putJson'] = (path, handlers) => express.put(path, ...toRegularExpressArgs(handlers));
 
   return express as any;
 }
