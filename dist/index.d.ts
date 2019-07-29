@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-export declare type JsonOrMiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => Promise<object> | object;
+export declare type JsonOrMiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => Promise<object> | object | void | Promise<void>;
 export interface IJsonErrorInfo {
     statusCode?: number;
 }

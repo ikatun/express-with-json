@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 
-export type JsonOrMiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => Promise<object> | object;
+export type JsonOrMiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => Promise<object> | object | void | Promise<void>;
 
 export interface IJsonErrorInfo {
   statusCode?: number;
