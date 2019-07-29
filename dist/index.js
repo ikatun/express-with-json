@@ -133,11 +133,41 @@ function toRegularExpressArgs(handlers) {
     return init(handlers).map(exports.middlewareHandler).concat([exports.jsonHandler(last(handlers))]);
 }
 function withJson(express) {
-    express['getJson'] = function (path, handlers) { return express.get.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
-    express['patchJson'] = function (path, handlers) { return express.patch.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
-    express['postJson'] = function (path, handlers) { return express.post.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
-    express['deleteJson'] = function (path, handlers) { return express.delete.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
-    express['putJson'] = function (path, handlers) { return express.put.apply(express, [path].concat(toRegularExpressArgs(handlers))); };
+    express['getJson'] = function (path) {
+        var handlers = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        return express.get.apply(express, [path].concat(toRegularExpressArgs(handlers)));
+    };
+    express['patchJson'] = function (path) {
+        var handlers = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        return express.patch.apply(express, [path].concat(toRegularExpressArgs(handlers)));
+    };
+    express['postJson'] = function (path) {
+        var handlers = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        return express.post.apply(express, [path].concat(toRegularExpressArgs(handlers)));
+    };
+    express['deleteJson'] = function (path) {
+        var handlers = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        return express.delete.apply(express, [path].concat(toRegularExpressArgs(handlers)));
+    };
+    express['putJson'] = function (path) {
+        var handlers = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        return express.put.apply(express, [path].concat(toRegularExpressArgs(handlers)));
+    };
     return express;
 }
 exports.withJson = withJson;

@@ -78,11 +78,11 @@ function toRegularExpressArgs(handlers: Array<JsonOrMiddlewareHandler>) {
 }
 
 export function withJson<T extends express.Application | Router>(express: T): T & IExpressWithJson {
-  express['getJson'] = (path, handlers) => express.get(path, ...toRegularExpressArgs(handlers));
-  express['patchJson'] = (path, handlers) => express.patch(path, ...toRegularExpressArgs(handlers));
-  express['postJson'] = (path, handlers) => express.post(path, ...toRegularExpressArgs(handlers));
-  express['deleteJson'] = (path, handlers) => express.delete(path, ...toRegularExpressArgs(handlers));
-  express['putJson'] = (path, handlers) => express.put(path, ...toRegularExpressArgs(handlers));
+  express['getJson'] = (path, ...handlers) => express.get(path, ...toRegularExpressArgs(handlers));
+  express['patchJson'] = (path, ...handlers) => express.patch(path, ...toRegularExpressArgs(handlers));
+  express['postJson'] = (path, ...handlers) => express.post(path, ...toRegularExpressArgs(handlers));
+  express['deleteJson'] = (path, ...handlers) => express.delete(path, ...toRegularExpressArgs(handlers));
+  express['putJson'] = (path, ...handlers) => express.put(path, ...toRegularExpressArgs(handlers));
 
   return express as any;
 }
