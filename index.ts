@@ -1,9 +1,6 @@
 import express, { Router } from 'express';
 
-export type JsonHandler = (req: express.Request, res: express.Response) => Promise<object> | object;
-export type MiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => any;
-
-export type JsonOrMiddlewareHandler = JsonHandler | MiddlewareHandler;
+export type JsonOrMiddlewareHandler = (req: express.Request, res: express.Response, next?: express.NextFunction) => Promise<object> | object;
 
 export interface IJsonErrorInfo {
   statusCode?: number;
@@ -29,7 +26,7 @@ export class JsonErrorResponse extends Error {
   }
 }
 
-export const jsonHandler = (handler: JsonHandler) => async (req: express.Request, res: express.Response, next) => {
+export const jsonHandler = (handler: JsonOrMiddlewareHandler) => async (req: express.Request, res: express.Response, next) => {
   try {
     const handlerResponse = await handler(req, res);
     res.json(handlerResponse);
@@ -42,7 +39,7 @@ export const jsonHandler = (handler: JsonHandler) => async (req: express.Request
   }
 };
 
-export const middlewareHandler = (handler: MiddlewareHandler) => async (req: express.Request, res: express.Response, next) => {
+export const middlewareHandler = (handler: JsonOrMiddlewareHandler) => async (req: express.Request, res: express.Response, next) => {
   if (handler.length > 2) {
     return handler;
   }
