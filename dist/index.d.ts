@@ -10,7 +10,7 @@ export declare class JsonErrorResponse extends Error {
     writeResponse(res: express.Response): void;
 }
 export declare const jsonHandler: (handler: JsonOrMiddlewareHandler) => (req: express.Request, res: express.Response, next: any) => Promise<void>;
-export declare const middlewareHandler: (handler: JsonOrMiddlewareHandler) => (req: express.Request, res: express.Response, next: any) => Promise<JsonOrMiddlewareHandler | undefined>;
+export declare const middlewareHandler: (handler: JsonOrMiddlewareHandler) => (req: express.Request, res: express.Response, next: any) => Promise<void | object>;
 export declare type EndpointMiddleware = (path: string, ...handlers: Array<JsonOrMiddlewareHandler>) => void;
 export interface IExpressWithJson {
     getJson: EndpointMiddleware;

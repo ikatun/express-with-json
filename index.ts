@@ -41,7 +41,7 @@ export const jsonHandler = (handler: JsonOrMiddlewareHandler) => async (req: exp
 
 export const middlewareHandler = (handler: JsonOrMiddlewareHandler) => async (req: express.Request, res: express.Response, next) => {
   if (handler.length > 2) {
-    return handler;
+    return handler(req, res, next);
   }
   try {
     await handler(req, res);

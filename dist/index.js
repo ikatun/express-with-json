@@ -100,7 +100,7 @@ exports.middlewareHandler = function (handler) { return function (req, res, next
         switch (_a.label) {
             case 0:
                 if (handler.length > 2) {
-                    return [2 /*return*/, handler];
+                    return [2 /*return*/, handler(req, res, next)];
                 }
                 _a.label = 1;
             case 1:
