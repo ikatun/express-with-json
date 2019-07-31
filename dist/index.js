@@ -168,6 +168,13 @@ function withJson(express) {
         }
         return express.put.apply(express, [path].concat(toRegularExpressArgs(handlers)));
     };
+    express['useAsync'] = function () {
+        var handlers = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            handlers[_i] = arguments[_i];
+        }
+        return express.use.apply(express, handlers.map(exports.middlewareHandler));
+    };
     return express;
 }
 exports.withJson = withJson;

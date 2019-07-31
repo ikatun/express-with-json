@@ -18,6 +18,7 @@ export interface IExpressWithJson {
     postJson: EndpointMiddleware;
     deleteJson: EndpointMiddleware;
     putJson: EndpointMiddleware;
+    useAsync: (...handlers: Array<JsonOrMiddlewareHandler>) => void;
 }
 export declare function withJson<T extends express.Application | Router>(express: T): T & IExpressWithJson;
 export default withJson;

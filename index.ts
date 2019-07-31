@@ -63,6 +63,7 @@ export interface IExpressWithJson {
   postJson: EndpointMiddleware;
   deleteJson: EndpointMiddleware;
   putJson: EndpointMiddleware;
+  useAsync: (...handlers: Array<JsonOrMiddlewareHandler>) => void;
 }
 
 function last<T>(xs: Array<T>): T {
@@ -83,6 +84,7 @@ export function withJson<T extends express.Application | Router>(express: T): T 
   express['postJson'] = (path, ...handlers) => express.post(path, ...toRegularExpressArgs(handlers));
   express['deleteJson'] = (path, ...handlers) => express.delete(path, ...toRegularExpressArgs(handlers));
   express['putJson'] = (path, ...handlers) => express.put(path, ...toRegularExpressArgs(handlers));
+  express['useAsync'] = (...handlers) => express.use(...handlers.map(middlewareHandler));
 
   return express as any;
 }
